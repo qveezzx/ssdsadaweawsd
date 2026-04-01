@@ -9,6 +9,6 @@ struct PlayerControllerPatterns {
         return clientPatterns
             .template addPattern<OffsetToBasePawnHandle, CodePattern{"0F B6 81 ? ? ? ? 84 C0 75 ? 8B ? ? ? ? ?"}.add(13).read()>()
             .template addPattern<OffsetToPlayerColor, CodePattern{"E8 ? ? ? ? 84 C0 74 ? 41 8B ? ? ? ? ? EB"}.add(12).read()>()
-            .template addPattern<OffsetToMusicKit, CodePattern{"8B 81 ? ? ? ? 89 44 24 30"}.add(2).read()>();
+            .template addPattern<OffsetToMusicKit, CodePattern{"8B 81 ? ? ? ? 89 44 24 ? 48 8B"}.add(2).read()>();
     }
 };

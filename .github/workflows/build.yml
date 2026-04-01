@@ -1,0 +1,52 @@
+name: Build Osiris
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+  workflow_dispatch:
+
+jobs:
+  windows-build:
+    name: Windows (Release | x64)
+    runs-on: windows-2022
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Osiris
+        run: msbuild Osiris.sln /p:Configuration=Release /p:Platform=x64
+
+      - name: Upload Osiris.dll
+        uses: actions/upload-artifact@v4
+        with:
+          name: Osiris-Windows
+          path: x64/Release/Osiris.dll
+
+  linux-build:
+    name: Linux (Release)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++-12
+
+      - name: Configure CMake
+        run: cmake -DCMAKE_BUILD_TYPE=Release -B build
+
+      - name: Build
+        run: cmake --build build -j $(nproc --all)
+
+      - name: Upload libOsiris.so
+        uses: actions/upload-artifact@v4
+        with:
+          name: Osiris-Linux
+          path: build/Source/libOsiris.so

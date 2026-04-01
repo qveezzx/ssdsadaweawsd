@@ -51,6 +51,11 @@ public:
         return hookContext.patternSearchResults().template get<OffsetToPlayerColor>().of(playerControllerPointer).toOptional();
     }
 
+    [[nodiscard]] cs2::CCSPlayerController* get() const noexcept
+    {
+        return playerControllerPointer;
+    }
+
 private:
     HookContext& hookContext;
     cs2::CCSPlayerController* playerControllerPointer;

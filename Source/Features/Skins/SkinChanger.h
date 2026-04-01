@@ -52,7 +52,7 @@ private:
 
         const auto offset = hookContext.patternSearchResults().template get<OffsetToMusicKit>();
         if (offset) {
-            offset.of(localPlayerController.baseEntity().get()).set(musicKit);
+            offset.of(localPlayerController.get()).set(musicKit);
         }
     }
 
@@ -60,7 +60,7 @@ private:
     {
         const auto offset = hookContext.patternSearchResults().template get<OffsetToFallbackPaintKit>();
         if (offset) {
-            offset.of(weapon.baseEntity().get()).set(paintKit);
+            offset.of(weapon.get()).set(paintKit);
         }
     }
 

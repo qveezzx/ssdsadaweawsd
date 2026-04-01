@@ -75,6 +75,11 @@ public:
             sceneObjectUpdaterHandle()->updaterFunction = reinterpret_cast<std::uint64_t(*)(void*, void*, bool)>(x);
     }
 
+    [[nodiscard]] cs2::C_CSWeaponBase* get() const noexcept
+    {
+        return baseWeapon;
+    }
+
 private:
     [[nodiscard]] Optional<float> inaccuracy() const noexcept
     {

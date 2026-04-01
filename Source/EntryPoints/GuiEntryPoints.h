@@ -2,6 +2,7 @@
 
 #include <CS2/Panorama/CPanel2D.h>
 #include <Utils/TemplateParameterCstring.h>
+#include <Utils/StringParser.h>
 
 template <typename HookContext>
 class GuiEntryPoints {
@@ -28,6 +29,17 @@ public:
         HookContext hookContext;
         auto&& dropdown = hookContext.template make<ClientPanel>(panel).template as<PanoramaDropDown>();
         hookContext.template make<DropdownSelectionChangedHandler>().onSelectionChanged(dropdown.getSelectedIndex());
+        return true;
+    }
+
+    template <typename ConfigVariable>
+    LINUX_ONLY([[gnu::aligned(8)]]) static bool textEntrySubmitted(void* /* thisptr */, cs2::CPanel2D* /* panel */, const char* value)
+    {
+        HookContext hookContext;
+        std::uint16_t val{};
+        if (StringParser{value}.parseInt(val)) {
+            hookContext.config().template setVariable<ConfigVariable>(val);
+        }
         return true;
     }
 };

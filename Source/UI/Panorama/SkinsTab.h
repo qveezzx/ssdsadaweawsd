@@ -38,14 +38,14 @@ private:
     template <typename ConfigVariable>
     void initTextEntry(auto&& guiPanel, const char* panelId) const
     {
-        auto&& textEntry = guiPanel.findChildInLayoutFile(panelId).clientPanel().template as<PanoramaTextEntry>();
+        auto&& textEntry = guiPanel.findChildInLayoutFile(panelId).clientPanel().template as<TextEntry>();
         textEntry.registerTextSubmittedHandler(&GuiEntryPoints<HookContext>::template textEntrySubmitted<ConfigVariable>);
     }
 
     template <typename ConfigVariable>
     void updateTextEntry(auto&& mainMenu, const char* panelId) const noexcept
     {
-        auto&& textEntry = mainMenu.findChildInLayoutFile(panelId).clientPanel().template as<PanoramaTextEntry>();
+        auto&& textEntry = mainMenu.findChildInLayoutFile(panelId).clientPanel().template as<TextEntry>();
         StringBuilderStorage<20> storage;
         storage.builder().put(GET_CONFIG_VAR(ConfigVariable));
         textEntry.setText(storage.builder().cstring());

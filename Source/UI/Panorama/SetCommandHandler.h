@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Features/Combat/SniperRifles/NoScopeInaccuracyVis/NoScopeInaccuracyVisConfigVariables.h>
+#include <Features/Skins/SkinsConfigVariables.h>
 #include <Features/Visuals/PlayerInfoInWorld/PlayerInfoInWorld.h>
 #include <GameClient/Panorama/Slider.h>
 #include <GameClient/Panorama/TextEntry.h>
@@ -27,10 +28,36 @@ struct SetCommandHandler {
             handleVisualsSection();
         } else if (section == "sound") {
             handleSoundSection();
+        } else if (section == "skins") {
+            handleSkinsSection();
         }
     }
 
 private:
+    void handleSkinsSection() const noexcept
+    {
+        if (const auto feature = parser.getLine('/'); feature == "skins_ak47") {
+            handleTextEntry<skins_vars::Ak47Skin>("skins_ak47");
+        } else if (feature == "skins_m4a4") {
+            handleTextEntry<skins_vars::M4A4Skin>("skins_m4a4");
+        } else if (feature == "skins_m4a1s") {
+            handleTextEntry<skins_vars::M4A1SSkin>("skins_m4a1s");
+        } else if (feature == "skins_awp") {
+            handleTextEntry<skins_vars::AwpSkin>("skins_awp");
+        } else if (feature == "skins_music_kit") {
+            handleTextEntry<skins_vars::MusicKit>("skins_music_kit");
+        }
+    }
+
+    template <typename ConfigVariable>
+    void handleTextEntry(const char* panelId) const noexcept
+    {
+        std::uint16_t value{};
+        if (parser.parseInt(value)) {
+            hookContext.config().template setVariable<ConfigVariable>(value);
+        }
+    }
+
     void handleCombatSection() noexcept
     {
     }

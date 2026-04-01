@@ -342,6 +342,26 @@ $.Osiris = (function () {
     createDropDown(parent, labelText, section, feature, ["Yes", "No"]);
   };
 
+  var createTextEntry = function (parent, labelText, feature, defaultValue) {
+    var container = $.CreatePanel('Panel', parent, '', {
+      class: "SettingsMenuDropdownContainer"
+    });
+
+    $.CreatePanel('Label', container, '', {
+      class: "half-width",
+      text: labelText
+    });
+
+    var textEntry = $.CreatePanel('TextEntry', container, feature, {
+      maxchars: "10",
+      textmode: "numeric",
+      style: "width: 150px; horizontal-align: right; padding-left: 10px; text-align: center; font-size: 20px; color: #ccccccff; font-weight: bold; font-family: Stratum2, notosans, 'Arial Unicode MS'; border: 2px solid #cccccc15; vertical-align: center; margin-right: 8px;"
+    });
+
+    textEntry.text = defaultValue;
+    textEntry.SetPanelEvent('ontextentrysubmit', function () { $.Osiris.addCommand('set', 'skins/' + feature + '/' + textEntry.text); });
+  };
+
   var separator = function (parent) {
     $.CreatePanel('Panel', parent, '', { class: "horizontal-separator" });
   };

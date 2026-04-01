@@ -37,6 +37,7 @@ constexpr auto kEntityClassNames = TypedStaticStringPool{}
     .add<C_WeaponFamas>("C_WeaponFamas")
     .add<C_AK47>("C_AK47")
     .add<C_WeaponM4A1>("C_WeaponM4A1")
+    .add<C_WeaponM4A1Silencer>("C_WeaponM4A1Silencer")
     .add<C_WeaponSG556>("C_WeaponSG556")
     .add<C_WeaponAug>("C_WeaponAug")
     .add<C_WeaponSSG08>("C_WeaponSSG08")
